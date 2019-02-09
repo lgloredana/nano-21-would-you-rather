@@ -1,11 +1,11 @@
-import {getAuthUser} from "./authUser";
-import {getQuestions} from "./questions";
+import {handleGetQuestions} from "./questions";
 import {handleGetUsers} from "./users";
+import {AUTH_ID, getAuthUser} from "./authUser";
 
 export function handleInitialData () {
     return (dispatch) => {
         dispatch(handleGetUsers());
-        dispatch(getQuestions());
-        dispatch(getAuthUser());
+        dispatch(handleGetQuestions());
+        dispatch(getAuthUser({id: AUTH_ID}))
     }
 }

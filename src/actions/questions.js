@@ -1,4 +1,5 @@
-import {_saveQuestion, _saveQuestionAnswer} from "../utils/_DATA";
+import {_getQuestions, _saveQuestion, _saveQuestionAnswer} from "../utils/_DATA";
+import {showLoading, hideLoading} from 'react-redux-loading'
 
 export const OPT1 = 'optionOne';
 export const OPT2 = 'optionTwo';
@@ -7,13 +8,23 @@ export const SAVE_NEW_QUESTION = 'SAVE_NEW_QUESTION';
 export const UPDATE_ANSWERED_QUESTION = 'UPDATE_ANSWERED_QUESTION';
 
 
-export function getQuestions(questions) {
+
+function getQuestions(questions) {
     return {
         type: GET_QUESTIONS,
         questions
     }
 }
-
+export function handleGetQuestions(){
+    return (dispatch) => {
+        dispatch(showLoading());
+        _getQuestions()
+            .then((response) => {
+                dispatch(hideLoading());
+                dispatch(getQuestions(response));
+            })
+    }
+}
 function saveQuestion(newQuestion) {
     return {
         type: SAVE_NEW_QUESTION,
