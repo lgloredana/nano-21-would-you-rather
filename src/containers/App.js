@@ -1,8 +1,9 @@
-import React, { Component } from 'react';
-import logo from '../images/logo.svg';
+import React, { Component, Fragment } from 'react';
 import '../css/App.css';
 import { connect } from "react-redux";
 import {handleInitialData} from "../actions/shared";
+import Login from "./Login";
+import {BrowserRouter, Route} from "react-router-dom";
 
 class App extends Component {
     componentDidMount() {
@@ -10,22 +11,28 @@ class App extends Component {
     }
     render() {
         return (
-          <div className="App">
-            <header className="App-header">
-              <img src={logo} className="App-logo" alt="logo" />
-              <p>
-                Edit <code>src/App.js</code> and save to reload.
-              </p>
-              <a
-                className="App-link"
-                href="https://reactjs.org"
-                target="_blank"
-                rel="noopener noreferrer"
-              >
-                Learn React
-              </a>
-            </header>
-          </div>
+            <BrowserRouter>
+                <Fragment>
+                    <div>
+                        <Route exact path='/' render={() => (
+                            <div>Dashboard Answered/Unanswered</div>)}
+                        />
+                        <Route path='/login' render={() => (
+                            <div>Login</div>)}
+                        />
+                        <Route path='/add' render={() => (
+                            <div>New Poll</div>)}
+                        />
+                        <Route path='/questions/:question_id' render={() => (
+                            <div>Question Details</div>)}
+                        />
+                        <Route path='/leaderboard' render={() => (
+                            <div>Leader Board</div>)}
+                        />
+                    </div>
+                </Fragment>
+            </BrowserRouter>
+
         );
     }
 }
