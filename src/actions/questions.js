@@ -20,8 +20,8 @@ export function handleGetQuestions(){
         dispatch(showLoading());
         _getQuestions()
             .then((response) => {
-                dispatch(hideLoading());
                 dispatch(getQuestions(response));
+                dispatch(hideLoading());
             })
     }
 }

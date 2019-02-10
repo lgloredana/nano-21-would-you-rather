@@ -53,7 +53,7 @@ code {
 }
 
 
-.createPollButton {
+.submitButton {
   border-top: 1px solid #96d1f8;
   background: #65a9d7;
   background: -webkit-gradient(linear, left top, left bottom, from(#3e779d), to(#65a9d7));
@@ -75,16 +75,24 @@ code {
   text-decoration: none;
   vertical-align: middle;
 }
-.createPollButton:hover {
+.submitButton:hover {
   border-top-color: #28597a;
   background: #28597a;
   color: #fcfffd;
 }
-.createPollButton:active {
+.submitButton:active {
   border-top-color: #0f7ac2;
   background: #0f7ac2;
 }
-.createPollButton:disabled {
+.submitButton:disabled {
   border-top-color: #0f7ac2;
   background: grey;
 }
+
+
+.avatar {
+  height: 50px;
+  border-radius: 25px;
+  margin: 10px;
+}
+

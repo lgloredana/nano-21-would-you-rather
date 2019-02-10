@@ -68,7 +68,7 @@ class NewPoll extends React.Component{
                     onChange={(e) => this.onChangeOpt2(e)}>
                 </textarea>
                 <br/>
-                <button className='createPollButton' type='submit' disabled={opt1Txt==='' || opt2Txt === ''}>Create</button>
+                <button className='submitButton' type='submit' disabled={opt1Txt==='' || opt2Txt === ''}>Create</button>
             </form>
         </div>)
     }

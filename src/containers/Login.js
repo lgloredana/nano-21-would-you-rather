@@ -1,13 +1,13 @@
 import React from 'react'
 import {connect} from "react-redux";
-import {getAuthUser} from "../actions/authUser";
+import { handleGetAuthedUser} from "../actions/authUser";
 import { Redirect,NavLink } from 'react-router-dom'
 
 class Login extends React.Component{
 
     selectedUser = (e) => {
        e.preventDefault();
-       this.props.dispatch(getAuthUser({id: e.target.value}));
+       this.props.dispatch(handleGetAuthedUser({id: e.target.value}));
     };
 
     render () {

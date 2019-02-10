@@ -9,6 +9,7 @@ import Login from "./Login";
 import Header from './Header'
 import Menu from "./Menu";
 import NewPoll from "./NewPoll";
+import QuestionDetails from "./QuestionDetails";
 
 class App extends Component {
     state = {
@@ -27,26 +28,31 @@ class App extends Component {
         this.props.dispatch(handleInitialData())
     }
     render() {
-        console.log('authed user = ', this.props.authedUser);
+        console.log(`=============== loading bar ============ ${this.props.loadingBar.default}`);
         return (
             <BrowserRouter>
                 <Fragment>
                     <LoadingBar/>
                     {
-                        this.props.loadingBar.default > 0
-                            ?<div><h1>Loading Initial Data .....</h1> </div>
+                        this.props.loadingBar.default > 0 || this.props.authedUser === null
+                            ?<div>
+                                <Route path='/'
+                                       exact
+                                       render = {() => ( <h1>Loading Initial Data .....</h1>)}
+                                />
+                            </div>
                             :<div>
                                 {
-                                    this.props.authedUser === null
-                                        ?  <div>
-                                                <Route path='/login'
-                                                       exact
-                                                      component={Login}
-                                                />
-                                                <Redirect to="/login"/>
-                                          </div>
-                                        : <div>
-                                            <Redirect to="/add"/>
+                                    // this.props.authedUser === null
+                                    //     ?  <div>
+                                    //             <Route path='/login'
+                                    //                    exact
+                                    //                   component={Login}
+                                    //             />
+                                    //             <Redirect to="/login"/>
+                                    //       </div>
+                                    //     :
+                                        <div>
                                             <Header></Header>
                                             <Menu showAnswered={this.state.showAnswered} toggleQuestionsView={this.toggleQuestionsView}/>
                                             <div className='mainContainer'>
@@ -59,9 +65,7 @@ class App extends Component {
                                                            <NewPoll/>)}
                                                 />
                                                 <Route path='/questions/:question_id'
-                                                       exact
-                                                       render={() => (
-                                                           <div>Question Details</div>)}
+                                                       component={QuestionDetails}
                                                 />
                                                 <Route path='/leaderboard'
                                                           render={() => (
