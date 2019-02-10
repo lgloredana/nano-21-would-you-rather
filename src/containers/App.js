@@ -2,12 +2,13 @@ import React, { Component, Fragment } from 'react';
 import '../css/App.css';
 import { connect } from "react-redux";
 import {handleInitialData} from "../actions/shared";
-import {BrowserRouter, Route} from "react-router-dom";
+import {BrowserRouter, Route, Redirect} from "react-router-dom";
 import Dashboard from "./Dashboard";
 import LoadingBar from 'react-redux-loading'
 import Login from "./Login";
 import Header from './Header'
 import Menu from "./Menu";
+import NewPoll from "./NewPoll";
 
 class App extends Component {
     state = {
@@ -26,6 +27,7 @@ class App extends Component {
         this.props.dispatch(handleInitialData())
     }
     render() {
+        console.log('authed user = ', this.props.authedUser);
         return (
             <BrowserRouter>
                 <Fragment>
@@ -36,21 +38,25 @@ class App extends Component {
                             :<div>
                                 {
                                     this.props.authedUser === null
-                                        ?  <Route path='/login'
-                                                  exact
-                                                  component={Login}
-                                            />
+                                        ?  <div>
+                                                <Route path='/login'
+                                                       exact
+                                                      component={Login}
+                                                />
+                                                <Redirect to="/login"/>
+                                          </div>
                                         : <div>
+                                            <Redirect to="/add"/>
                                             <Header></Header>
                                             <Menu showAnswered={this.state.showAnswered} toggleQuestionsView={this.toggleQuestionsView}/>
-                                            <div className='center'>
+                                            <div className='mainContainer'>
                                                 <Route path='/'
                                                        exact
                                                        render = {() => (<Dashboard showAnswered={this.state.showAnswered} />)}
                                                 />
                                                 <Route path='/add'
                                                        render={() => (
-                                                           <div>New Poll</div>)}
+                                                           <NewPoll/>)}
                                                 />
                                                 <Route path='/questions/:question_id'
                                                        exact
@@ -58,7 +64,7 @@ class App extends Component {
                                                            <div>Question Details</div>)}
                                                 />
                                                 <Route path='/leaderboard'
-                                                       render={() => (
+                                                          render={() => (
                                                            <div>Leader Board</div>)}
                                                 />
                                              </div>

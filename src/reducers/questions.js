@@ -9,8 +9,8 @@ export default function questions( prevStoreState = null, action){
             };
         case SAVE_NEW_QUESTION :
             return {
-                ...prevStoreState
-                /// TODO IMPLEMENT SAVE
+                ...prevStoreState,
+                [action.newQuestion.id]: action.newQuestion,
             };
         case UPDATE_ANSWERED_QUESTION :
             return {

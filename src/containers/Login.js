@@ -1,39 +1,35 @@
 import React from 'react'
 import {connect} from "react-redux";
 import {getAuthUser} from "../actions/authUser";
+import { Redirect,NavLink } from 'react-router-dom'
 
 class Login extends React.Component{
 
     selectedUser = (e) => {
        e.preventDefault();
-       console.log('--------- ');
-       console.dir(e.target);
-       // this.props.dispatch(getAuthUser(e.target.value))
+       this.props.dispatch(getAuthUser({id: e.target.value}));
     };
 
     render () {
-        console.log('***************');
-        console.dir(this.props.users);
-        console.dir(this.props.users ? this.props.users.length : 0);
-        // const options = this.props.users
-        //         ? this.props.users.map((key, value) => {
-        //             return (<option value={key}>{value.name}</option>)
-        //         })
-        // : [];
-        // const options = [];
+        console.log('------ render login -----');
+        let options = this.props.users
+            ? Object.keys(this.props.users).map((user) => {
+                return <option value={user} key={user}>{user}</option>
+            })
+            : '';
 
-        return (<div>
-           <select onClick={(e) => this.selectedUser(e)}>
+        return (<div className='mainContainer'>
+            Login Page <br/><br/>
+           <select onChange={(e) => this.selectedUser(e)}>
                <option value="">--Please choose an user--</option>
-               {/*{options}*/}
+               {options}
            </select>
         </div>)
     }
 }
 
-function mapStateToProps({authedUser, users}){
+function mapStateToProps({users}){
     return {
-        authedUser,
         users
     };
 }

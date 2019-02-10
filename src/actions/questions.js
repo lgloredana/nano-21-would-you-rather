@@ -32,12 +32,15 @@ function saveQuestion(newQuestion) {
     }
 }
 
-export function handleSaveQuestion({optionOneText, optionTwoText}) {
+export function handleSaveQuestion({optionOneText, optionTwoText}, callback) {
     return (dispatch, getState) => {
         const { authedUser } =  getState();
-        _saveQuestion({author: authedUser,optionOneText,optionTwoText})
+        // dispatch(showLoading());
+        _saveQuestion({author: authedUser.id,optionOneText,optionTwoText})
             .then((response) => {
                 dispatch(saveQuestion(response));
+                callback();
+                // dispatch(hideLoading());
             })
     }
 }

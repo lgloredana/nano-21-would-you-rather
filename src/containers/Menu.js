@@ -5,29 +5,27 @@ import NavLink from "react-router-dom/es/NavLink";
 class Menu extends Component{
 
     render() {
+
         return  (
             <nav className='nav'>
-                <ul>
-                    <li>
-                        <NavLink to='/' exact activeClassName='active'  onClick={this.props.toggleQuestionsView}>
-                            {this.props.showAnswered ? 'Answered' : 'Unanswered'}
-                        </NavLink>
-                    </li>
-                </ul>
-                <ul>
-                    <li>
-                        <NavLink to='/leaderboard' activeClassName='active'>
-                            Leader Board
-                        </NavLink>
-                    </li>
-                </ul>
-                <ul>
-                    <li>
-                        <NavLink to='/add' activeClassName='active'>
-                            New Poll
-                        </NavLink>
-                    </li>
-                </ul>
+                <NavLink
+                         activeClassName='active'
+                         to='/'
+                         onClick={this.props.toggleQuestionsView}>
+                    {this.props.showAnswered ? 'Answered' : 'Unanswered'}
+                </NavLink>
+                <label> /////////////// </label>
+                <NavLink
+                        activeClassName='active'
+                        to='/leaderboard'>
+                    Leader Board
+                </NavLink>
+                <label> /////////////// </label>
+                <NavLink
+                        activeClassName='active'
+                        to='/add'>
+                    New Poll
+                </NavLink>
             </nav>
         )
     }
