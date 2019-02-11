@@ -10,6 +10,7 @@ import Header from './Header'
 import Menu from "./Menu";
 import NewPoll from "./NewPoll";
 import QuestionDetails from "./QuestionDetails";
+import LeaderBoard from "./LeadersBoard";
 
 class App extends Component {
     state = {
@@ -69,7 +70,7 @@ class App extends Component {
                                                 />
                                                 <Route path='/leaderboard'
                                                           render={() => (
-                                                           <div>Leader Board</div>)}
+                                                           <LeaderBoard/>   )}
                                                 />
                                              </div>
                                         </div>
