@@ -29,10 +29,7 @@ class QuestionDetails extends Component {
         const votesQ1 = question.optionOne.votes.length;
         const votesQ2 = question.optionTwo.votes.length;
         const nrUsers = Object.keys(users).length;
-        const voteAnswer1 = this.props.question.optionOne.votes.find( user => (user === this.props.authedUser));
-        console.log(` ---------- this.props.question.optionOne.votes = ${this.props.question.optionOne.votes.length}  -------------------`);
-        console.log(` ---------- selectedOption = ${selectedOption}  -------------------`);
-        console.log(' ========= question =============');
+
         console.dir(this.props.question);
         return (
             <div>
@@ -70,7 +67,7 @@ class QuestionDetails extends Component {
                             <label htmlFor="qChoice2"> {votesQ2 * 100 / nrUsers} %</label>
                         </div><br/>
                     </div>
-                    <button type='submit' className='submitButton' >Submit Answer</button>
+                    <button type='submit' className='submitButton' disabled={selectedOption === ''}>Submit Answer</button>
                 </form>
 
             </div>
