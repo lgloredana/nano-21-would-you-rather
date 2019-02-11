@@ -28,7 +28,7 @@ class App extends Component {
         this.props.dispatch(handleInitialData())
     }
     render() {
-        console.log(`=============== loading bar ============ ${this.props.loadingBar.default}`);
+        // console.log(`=============== loading bar ============ ${this.props.loadingBar.default}`);
         return (
             <BrowserRouter>
                 <Fragment>
