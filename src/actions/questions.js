@@ -55,14 +55,15 @@ function updateQuestion(questionAnswer) {
     }
 }
 
-export function handleUpdateQuestion({qid, answer}) {
+export function handleUpdateQuestion({qid, answer}, callback) {
     return (dispatch, getState) => {
         const { authedUser } = getState();
         const questionAnswer = {authedUser: authedUser.id, qid, answer};
         _saveQuestionAnswer(questionAnswer)
             .then((response) => {
                 dispatch(updateQuestion(questionAnswer));
-                dispatch(handleUpdateUsers({answerId:qid}))
+                dispatch(handleUpdateUsers({answerId:qid}));
+                callback();
             })
     }
 }

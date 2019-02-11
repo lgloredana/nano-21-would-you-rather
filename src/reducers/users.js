@@ -12,7 +12,6 @@ export default function users(prevStoreState = null, action) {
             const { answerId, questionId, uId } = action.userInfo;
             let updateAnswer = {}, updatedQuestions = {};
             if (answerId) {
-                debugger;
                 updateAnswer = prevStoreState[uId].answers[answerId]
                     ?  prevStoreState[uId].answers
                     :  { ... prevStoreState[uId].answers , answerId };
@@ -27,10 +26,10 @@ export default function users(prevStoreState = null, action) {
             else{
                 updatedQuestions = prevStoreState[uId].questions;
             }
-            debugger;
             return {
                 ...prevStoreState,
                 [uId]:{
+                    ...prevStoreState[uId],
                     answers: updateAnswer,
                     questions: updatedQuestions
                 }

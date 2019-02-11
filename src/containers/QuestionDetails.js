@@ -1,6 +1,7 @@
 import React, { Component } from 'react'
 import connect from "react-redux/es/connect/connect";
 import {handleUpdateQuestion, OPT1, OPT2} from "../actions/questions";
+import {withRouter} from 'react-router-dom'
 
 class QuestionDetails extends Component {
     state = {
@@ -13,7 +14,11 @@ class QuestionDetails extends Component {
 
     updateAnswer = (e) => {
         e.preventDefault();
-        this.props.dispatch(handleUpdateQuestion({qid: this.props.question.id,answer:e.target.question.value}))
+        this.props.dispatch(handleUpdateQuestion({qid: this.props.question.id,answer:e.target.question.value}, this.afterSaveAnswer))
+    };
+
+    afterSaveAnswer = () => {
+        this.props.history.push(`/`);
     };
 
     handleOptionChange = (changeEvent) => {
@@ -23,14 +28,17 @@ class QuestionDetails extends Component {
     };
 
     render() {
-        const { users, question } = this.props;
+        const { users, question,isAnswerdQuestion } = this.props;
         const {selectedOption} = this.state;
 
         const votesQ1 = question.optionOne.votes.length;
         const votesQ2 = question.optionTwo.votes.length;
         const nrUsers = Object.keys(users).length;
 
-        console.dir(this.props.question);
+        console.log('================');
+        console.dir(question);
+        console.dir(users[question.author]);
+
         return (
             <div>
                 <h1>Would You Rather</h1>
@@ -50,9 +58,16 @@ class QuestionDetails extends Component {
                                    checked={selectedOption === 'optionOne'}
                                    onChange={this.handleOptionChange}
                             />
-                            <label htmlFor="qChoice1">{question.optionOne.text} -----</label>
-                            <label htmlFor="qChoice1">Count = {votesQ1} ------</label>
-                            <label htmlFor="qChoice1"> {votesQ1 * 100 / nrUsers} %</label>
+                            <label htmlFor="qChoice1">{question.optionOne.text} </label>
+                            {
+                                isAnswerdQuestion
+                                    ? <div>
+                                            <label>Count = {votesQ1} ------</label>
+                                            <label> {votesQ1 * 100 / nrUsers} %</label>
+                                      </div>
+                                    : ''
+                            }
+
                         </div>
                         <div>
                             <input type="radio"
@@ -62,12 +77,21 @@ class QuestionDetails extends Component {
                                    checked={selectedOption === 'optionTwo'}
                                    onChange={this.handleOptionChange}
                             />
-                            <label htmlFor="qChoice2">{question.optionTwo.text}-----</label>
-                            <label htmlFor="qChoice2">Count = {votesQ2} -------</label>
-                            <label htmlFor="qChoice2"> {votesQ2 * 100 / nrUsers} %</label>
+                            <label htmlFor="qChoice2">{question.optionTwo.text}</label>
+                            {
+                                isAnswerdQuestion
+                                    ? <div>
+                                        <label>Count = {votesQ2} -------</label>
+                                        <label> {votesQ2 * 100 / nrUsers} %</label>
+                                      </div>
+                                    : ''
+                            }
                         </div><br/>
                     </div>
-                    <button type='submit' className='submitButton' disabled={selectedOption === ''}>Submit Answer</button>
+                    { isAnswerdQuestion
+                        ? ''
+                        : <button type='submit' className='submitButton' disabled={selectedOption === ''}>Submit Answer</button>
+                    }
                 </form>
 
             </div>
@@ -81,8 +105,9 @@ function mapStateToProps({authedUser, questions, users} , props) {
     return {
         authedUser : authedUser.id,
         question : questions[question_id],
-        users
+        users,
+        isAnswerdQuestion: users[authedUser.id].answers[question_id] ? true: false
     }
 }
 
-export default connect(mapStateToProps)(QuestionDetails);
+export default withRouter(connect(mapStateToProps)(QuestionDetails));

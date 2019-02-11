@@ -37,8 +37,6 @@ export default function questions( prevStoreState = null, action){
                     votes: answerTwoVotes
                 }
             };
-            debugger;
-
             return {
                 ...prevStoreState,
                 [qid]: updatedQuestion
