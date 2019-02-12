@@ -11,14 +11,14 @@ class Login extends React.Component{
     };
 
     render () {
-        console.log('------ render login -----');
         let options = this.props.users
             ? Object.keys(this.props.users).map((user) => {
                 return <option value={user} key={user}>{user}</option>
             })
             : '';
 
-        return (<div className='mainContainer'>
+
+        return (<div>
             Login Page <br/><br/>
            <select onChange={(e) => this.selectedUser(e)}>
                <option value="">--Please choose an user--</option>

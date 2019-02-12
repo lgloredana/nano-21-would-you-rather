@@ -1,14 +1,13 @@
 import React from 'react'
 import {connect} from "react-redux";
 import {handleSaveQuestion} from "../actions/questions";
-import { Redirect } from 'react-router-dom'
+import {Redirect, withRouter} from 'react-router-dom'
 
 class NewPoll extends React.Component{
 
     state = {
         opt1Txt: '',
-        opt2Txt: '',
-        toDashboard: false
+        opt2Txt: ''
     };
 
     onChangeOpt1 = (e) => {
@@ -38,19 +37,13 @@ class NewPoll extends React.Component{
             optionTwoText: this.state.opt2Txt
         }, this.onSuccesRedirect));
     };
+
     onSuccesRedirect = () => {
-        this.setState((prevstate) => {
-            return {
-                toDashboard: true
-            }
-        })
+        this.props.history.push(`/`);
     };
 
     render () {
-        const {opt1Txt, opt2Txt, toDashboard} = this.state;
-        if (toDashboard === true) {
-            return <Redirect to='/' />
-        }
+        const {opt1Txt, opt2Txt} = this.state;
         return (<div>
             <h1>Would You Rather</h1>
             <form onSubmit={(e) => this.submitNewPoll(e)}>
@@ -75,4 +68,4 @@ class NewPoll extends React.Component{
 }
 
 
-export default connect()(NewPoll);
+export default withRouter(connect()(NewPoll));

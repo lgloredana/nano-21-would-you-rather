@@ -16,6 +16,7 @@ function getQuestions(questions) {
         questions
     }
 }
+
 export function handleGetQuestions(){
     return (dispatch) => {
         dispatch(showLoading());
@@ -26,6 +27,7 @@ export function handleGetQuestions(){
             })
     }
 }
+
 function saveQuestion(newQuestion) {
     return {
         type: SAVE_NEW_QUESTION,
@@ -36,17 +38,14 @@ function saveQuestion(newQuestion) {
 export function handleSaveQuestion({optionOneText, optionTwoText}, callback) {
     return (dispatch, getState) => {
         const { authedUser } =  getState();
-        // dispatch(showLoading());
         _saveQuestion({author: authedUser.id,optionOneText,optionTwoText})
             .then((response) => {
                 dispatch(saveQuestion(response));
                 dispatch(handleUpdateUsers({questionId: response.id}));
                 callback();
-                // dispatch(hideLoading());
             })
     }
 }
-
 
 function updateQuestion(questionAnswer) {
     return {
@@ -62,7 +61,7 @@ export function handleUpdateQuestion({qid, answer}, callback) {
         _saveQuestionAnswer(questionAnswer)
             .then((response) => {
                 dispatch(updateQuestion(questionAnswer));
-                dispatch(handleUpdateUsers({answerId:qid}));
+                dispatch(handleUpdateUsers({answerId:qid, answer}));
                 callback();
             })
     }

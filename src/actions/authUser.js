@@ -12,8 +12,6 @@ function getAuthUser(authedUser) {
 
 export function handleGetAuthedUser(authedUser) {
     return (dispatch) => {
-        dispatch(showLoading());
         dispatch(getAuthUser(authedUser))
-        dispatch(hideLoading());
     }
 }

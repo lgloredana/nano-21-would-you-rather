@@ -9,12 +9,12 @@ export default function users(prevStoreState = null, action) {
                 ...action.users
             };
         case UPDATE_USERS:{
-            const { answerId, questionId, uId } = action.userInfo;
+            const { answerId, questionId, uId, answer } = action.userInfo;
             let updateAnswer = {}, updatedQuestions = {};
             if (answerId) {
                 updateAnswer = prevStoreState[uId].answers[answerId]
                     ?  prevStoreState[uId].answers
-                    :  { ... prevStoreState[uId].answers , answerId };
+                    :  { ... prevStoreState[uId].answers , [answerId] : answer};
             }
             else{
                 updateAnswer = prevStoreState[uId].answers;

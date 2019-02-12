@@ -31,12 +31,15 @@ export default function questions( prevStoreState = null, action){
             const updatedQuestion = {
                 ...prevStoreState[qid],
                 [OPT1]: {
+                    ...prevStoreState[qid][OPT1],
                     votes: answerOneVotes
                 },
                 [OPT2]: {
+                    ...prevStoreState[qid][OPT2],
                     votes: answerTwoVotes
                 }
             };
+            debugger;
             return {
                 ...prevStoreState,
                 [qid]: updatedQuestion

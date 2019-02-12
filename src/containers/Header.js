@@ -1,14 +1,21 @@
 import React, { Component } from 'react'
 import {connect} from 'react-redux'
-import NavLink from "react-router-dom/es/NavLink";
+import {handleGetAuthedUser} from "../actions/authUser";
 
-const Header = (props) => {
-    return  (
-        <div className='headerContent'>
-           {props.authedUser ? props.authedUser.id : ''} /
-            <NavLink to='/login'>LogOut</NavLink>
-        </div>
-    )
+class Header extends Component{
+    onLogOut = (e) => {
+        e.preventDefault();
+        this.props.dispatch(handleGetAuthedUser({id: null}))
+    };
+    render(){
+        const { authedUser } = this.props;
+        return  (
+            <div className='headerContent'>
+                {authedUser ? authedUser.id : ''} /
+                <button onClick={this.onLogOut}>LogOut</button>
+            </div>
+        )
+    }
 };
 
 function mapStateToProps({authedUser}){
