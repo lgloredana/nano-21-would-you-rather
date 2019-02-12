@@ -2,7 +2,7 @@ import React, { Component, Fragment } from 'react';
 import '../css/App.css';
 import { connect } from "react-redux";
 import {handleInitialData} from "../actions/shared";
-import {BrowserRouter, Route, Redirect} from "react-router-dom";
+import {BrowserRouter, Route, Redirect, Switch} from "react-router-dom";
 import Dashboard from "./Dashboard";
 import LoadingBar from 'react-redux-loading'
 import Login from "./Login";
@@ -11,6 +11,7 @@ import Menu from "./Menu";
 import NewPoll from "./NewPoll";
 import QuestionDetails from "./QuestionDetails";
 import LeaderBoard from "./LeadersBoard";
+import ErrorPage from "./ErrorPage";
 
 class App extends Component {
     state = {
@@ -55,21 +56,24 @@ class App extends Component {
                                         <Header></Header>
                                         <Menu showAnswered={this.state.showAnswered} toggleQuestionsView={this.toggleQuestionsView}/>
                                         <div className='mainContainer'>
-                                            <Route path='/'
-                                                   exact
-                                                   render = {() => (<Dashboard showAnswered={this.state.showAnswered} />)}
-                                            />
-                                            <Route path='/add'
-                                                   render={() => (
-                                                       <NewPoll/>)}
-                                            />
-                                            <Route path='/questions/:question_id'
-                                                   component={QuestionDetails}
-                                            />
-                                            <Route path='/leaderboard'
-                                                      render={() => (
-                                                       <LeaderBoard/>   )}
-                                            />
+                                            <Switch>
+                                                <Route path='/'
+                                                       exact
+                                                       render = {() => (<Dashboard showAnswered={this.state.showAnswered} />)}
+                                                />
+                                                <Route path='/add'
+                                                       render={() => (
+                                                           <NewPoll/>)}
+                                                />
+                                                <Route path='/questions/:question_id'
+                                                       component={QuestionDetails}
+                                                />
+                                                <Route path='/leaderboard'
+                                                          render={() => (
+                                                           <LeaderBoard/>  )}
+                                                />
+                                                <Route component={ErrorPage} />
+                                            </Switch>
                                          </div>
                                     </div>
 
