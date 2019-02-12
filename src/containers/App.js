@@ -63,7 +63,10 @@ class App extends Component {
                                                    render={() => (
                                                        <LeaderBoard/>  )}
                                             />
-                                            <Route component={ErrorPage} />
+                                            <Route path='/error'
+                                                   render={() => (
+                                                       <ErrorPage/>  )}
+                                            />
                                         </Switch>
                                     </div>
                                 </div>

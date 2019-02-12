@@ -5,12 +5,20 @@ import {withRouter} from 'react-router-dom'
 
 class QuestionDetails extends Component {
     state = {
-        selectedOption: this.props.question.optionOne.votes.find( user => (user === this.props.authedUser))
-            ? 'optionOne'
-            : this.props.question.optionTwo.votes.find( user => (user === this.props.authedUser))
-                ? 'optionTwo'
-                : ''
+        selectedOption: ''
     };
+
+    componentDidMount() {
+        if(this.props.question) {
+            this.setState({
+                selectedOption: this.props.question.optionOne.votes.find(user => (user === this.props.authedUser))
+                    ? 'optionOne'
+                    : this.props.question.optionTwo.votes.find(user => (user === this.props.authedUser))
+                        ? 'optionTwo'
+                        : ''
+            });
+        }
+    }
 
     updateAnswer = (e) => {
         e.preventDefault();
@@ -30,70 +38,77 @@ class QuestionDetails extends Component {
     render() {
         const { users, question,isAnswerdQuestion } = this.props;
         const {selectedOption} = this.state;
+        let votesQ1, votesQ2, nrUsers;
 
-        const votesQ1 = question.optionOne.votes.length;
-        const votesQ2 = question.optionTwo.votes.length;
-        const nrUsers = Object.keys(users).length;
+        if(question){
+            votesQ1 = question.optionOne.votes.length;
+            votesQ2 = question.optionTwo.votes.length;
+            nrUsers = Object.keys(users).length;
+        }else{
+            this.props.history.push(`/error`);
+        }
 
-        console.log('================');
-        console.dir(question);
-        console.dir(users[question.author]);
+        return (<div>
+              {question
+                      ? (
+                <div>
+                    <h1>Would You Rather</h1>
+                    <img
+                        src={users[question.author].avatarURL}
+                        alt={`Avatar of ${users[question.author].name}`}
+                        className='avatar'
+                    />
 
-        return (
-            <div>
-                <h1>Would You Rather</h1>
-                <img
-                    src={users[question.author].avatarURL}
-                    alt={`Avatar of ${users[question.author].name}`}
-                    className='avatar'
-                />
-
-                <form onSubmit={(e) => this.updateAnswer(e)} >
-                    <div>
+                    <form onSubmit={(e) => this.updateAnswer(e)}>
                         <div>
-                            <input type="radio"
-                                   id="qChoice1"
-                                   value='optionOne'
-                                   name='question'
-                                   checked={selectedOption === 'optionOne'}
-                                   onChange={this.handleOptionChange}
-                            />
-                            <label htmlFor="qChoice1">{question.optionOne.text} </label>
-                            {
-                                isAnswerdQuestion
-                                    ? <div>
+                            <div>
+                                <input type="radio"
+                                       id="qChoice1"
+                                       value='optionOne'
+                                       name='question'
+                                       checked={selectedOption === 'optionOne'}
+                                       onChange={this.handleOptionChange}
+                                />
+                                <label htmlFor="qChoice1">{question.optionOne.text} </label>
+                                {
+                                    isAnswerdQuestion
+                                        ? <div>
                                             <label>Count = {votesQ1} ------</label>
                                             <label> {votesQ1 * 100 / nrUsers} %</label>
-                                      </div>
-                                    : ''
-                            }
+                                        </div>
+                                        : ''
+                                }
 
+                            </div>
+                            <div>
+                                <input type="radio"
+                                       id="qChoice2"
+                                       value='optionTwo'
+                                       name='question'
+                                       checked={selectedOption === 'optionTwo'}
+                                       onChange={this.handleOptionChange}
+                                />
+                                <label htmlFor="qChoice2">{question.optionTwo.text}</label>
+                                {
+                                    isAnswerdQuestion
+                                        ? <div>
+                                            <label>Count = {votesQ2} -------</label>
+                                            <label> {votesQ2 * 100 / nrUsers} %</label>
+                                        </div>
+                                        : ''
+                                }
+                            </div>
+                            <br/>
                         </div>
-                        <div>
-                            <input type="radio"
-                                   id="qChoice2"
-                                   value='optionTwo'
-                                   name='question'
-                                   checked={selectedOption === 'optionTwo'}
-                                   onChange={this.handleOptionChange}
-                            />
-                            <label htmlFor="qChoice2">{question.optionTwo.text}</label>
-                            {
-                                isAnswerdQuestion
-                                    ? <div>
-                                        <label>Count = {votesQ2} -------</label>
-                                        <label> {votesQ2 * 100 / nrUsers} %</label>
-                                      </div>
-                                    : ''
-                            }
-                        </div><br/>
-                    </div>
-                    { isAnswerdQuestion
-                        ? ''
-                        : <button type='submit' className='submitButton' disabled={selectedOption === ''}>Submit Answer</button>
-                    }
-                </form>
-
+                        {isAnswerdQuestion
+                            ? ''
+                            : <button type='submit' className='submitButton' disabled={selectedOption === ''}>Submit
+                                Answer</button>
+                        }
+                    </form>
+                </div>)
+                      : <div></div>
+            }
             </div>
         )
     }
