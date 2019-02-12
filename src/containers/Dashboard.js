@@ -12,7 +12,7 @@ class Dashboard extends Component {
         const unansweredQuestions  = orderedQuestionsIDs.filter( orderQId =>
                                          !answers.find( answerId => orderQId === answerId));
         return (<div>
-            Dashboard {showAnswered ? 'Answered' : 'Unanswered' }
+            <h1> {showAnswered ? 'Answered' : 'Unanswered' } Questions</h1>
             <div>
                 <ul>
                     {showAnswered
