@@ -12,7 +12,7 @@ class Menu extends Component{
                          activeClassName='active'
                          to='/'
                          onClick={this.props.toggleQuestionsView}>
-                    {this.props.showAnswered ? 'Answered' : 'Unanswered'}
+                    {this.props.showAnswered ? 'Unanswered' : 'Answered'}
                 </NavLink>
                 <label> /////////////// </label>
                 <NavLink

@@ -6,42 +6,34 @@ import { Link } from 'react-router-dom'
 class Dashboard extends Component {
 
     render() {
-        const { showAnswered, questions, authedUser, orderdQuestionsIDs } = this.props;
-        const answeredQuestionsIds = orderdQuestionsIDs.filter( qId => {
-            const voteQ1found = questions[qId].optionOne.votes.find(vote => (vote === authedUser) );
-            const voteQ2found = questions[qId].optionTwo.votes.find(vote => (vote === authedUser));
-            // console.log(`-------qId = ${qId}  ---- found = ${voteQ1found} and ${voteQ2found}`);
-            return voteQ1found || voteQ2found;
-        } );
-        const unansweredQuestions = orderdQuestionsIDs.filter(qid => !answeredQuestionsIds.find( aqid => (aqid === qid) ));
-        // console.log('------ answered questins ------');
-        // console.dir(answeredQuestionsIds);
-        // console.log('------ answered questins ------');
-        // console.dir(unansweredQuestions);
-
+        const { showAnswered, questions, orderedQuestionsIDs, answers } = this.props;
+        const answeredQuestionsIds = orderedQuestionsIDs.filter( orderQId =>
+                                        answers.find( answerId => orderQId === answerId));
+        const unansweredQuestions  = orderedQuestionsIDs.filter( orderQId =>
+                                         !answers.find( answerId => orderQId === answerId));
         return (<div>
-            Dashboard {showAnswered ? 'Unanswered' : 'Answered'}
+            Dashboard {showAnswered ? 'Answered' : 'Unanswered' }
             <div>
                 <ul>
                     {showAnswered
-                        ? unansweredQuestions.map( qid => {
+                        ? answeredQuestionsIds.map( qid => {
                             const question = questions[qid];
                             const questionOpt1 = question.optionOne.text;
                             const questionOpt2 = question.optionTwo.text;
                             return (<ol key={qid}>
-                                {question.author} / {formatDate(question.timestamp)} / {questionOpt1} / {questionOpt2} /
-                                <Link to={`/questions/${qid}`}>Details</Link>
-                            </ol>)
+                                        {question.author} / {formatDate(question.timestamp)} / {questionOpt1} / {questionOpt2} /
+                                        <Link to={`/questions/${qid}`}>Details</Link>
+                                    </ol>)
                         })
-                        :answeredQuestionsIds.map( qid => {
+                        : unansweredQuestions.map( qid => {
                             const question = questions[qid];
                             const questionOpt1 = question.optionOne.text;
                             const questionOpt2 = question.optionTwo.text;
                             return (<ol key={qid}>
-                                {question.author} / {formatDate(question.timestamp)} / {questionOpt1} / {questionOpt2} /
-                                <Link to={`/questions/${qid}`}>Details</Link>
-                            </ol>)
-                        })
+                                        {question.author} / {formatDate(question.timestamp)} / {questionOpt1} / {questionOpt2} /
+                                        <Link to={`/questions/${qid}`}>Details</Link>
+                                    </ol>)
+                    })
                     }
                 </ul>
             </div>
@@ -50,11 +42,11 @@ class Dashboard extends Component {
 }
 
 
-function mapStateToProps({questions, authedUser}, {showAnswered}){
+function mapStateToProps({questions, authedUser, users}, {showAnswered}){
     return {
-        authedUser: authedUser.id,
         questions,
-        orderdQuestionsIDs: Object.keys(questions).sort((a, b) => questions[b].timestamp - questions[a].timestamp),
+        answers: Object.keys(users[authedUser.id].answers),
+        orderedQuestionsIDs: Object.keys(questions).sort((a, b) => questions[b].timestamp - questions[a].timestamp),
         showAnswered
     };
 }

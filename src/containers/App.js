@@ -14,7 +14,7 @@ import LeaderBoard from "./LeadersBoard";
 
 class App extends Component {
     state = {
-        showAnswered : true
+        showAnswered : false
     };
 
     toggleQuestionsView = () => {
@@ -23,7 +23,7 @@ class App extends Component {
                 showAnswered : !prevState.showAnswered
             }
         })
-    }
+    };
 
     componentDidMount() {
         this.props.dispatch(handleInitialData())
@@ -35,47 +35,44 @@ class App extends Component {
                 <Fragment>
                     <LoadingBar/>
                     {
-                        this.props.loadingBar.default > 0 || this.props.authedUser === null
+                        this.props.loadingBar.default > 0 ||  this.props.authedUser === null
                             ?<div>
                                 <Route path='/'
                                        exact
                                        render = {() => ( <h1>Loading Initial Data .....</h1>)}
                                 />
                             </div>
-                            :<div>
-                                {
-                                    // this.props.authedUser === null
-                                    //     ?  <div>
-                                    //             <Route path='/login'
-                                    //                    exact
-                                    //                   component={Login}
-                                    //             />
-                                    //             <Redirect to="/login"/>
-                                    //       </div>
-                                    //     :
-                                        <div>
-                                            <Header></Header>
-                                            <Menu showAnswered={this.state.showAnswered} toggleQuestionsView={this.toggleQuestionsView}/>
-                                            <div className='mainContainer'>
-                                                <Route path='/'
-                                                       exact
-                                                       render = {() => (<Dashboard showAnswered={this.state.showAnswered} />)}
-                                                />
-                                                <Route path='/add'
-                                                       render={() => (
-                                                           <NewPoll/>)}
-                                                />
-                                                <Route path='/questions/:question_id'
-                                                       component={QuestionDetails}
-                                                />
-                                                <Route path='/leaderboard'
-                                                          render={() => (
-                                                           <LeaderBoard/>   )}
-                                                />
-                                             </div>
-                                        </div>
-                                }
-                            </div>
+                            :
+                                // ?   <div>
+                                //         <Route path='/login'
+                                //                exact
+                                //               component={Login}
+                                //         />
+                                //         <Redirect to="/login"/>
+                                //     </div>
+                                // :
+                                    <div>
+                                        <Header></Header>
+                                        <Menu showAnswered={this.state.showAnswered} toggleQuestionsView={this.toggleQuestionsView}/>
+                                        <div className='mainContainer'>
+                                            <Route path='/'
+                                                   exact
+                                                   render = {() => (<Dashboard showAnswered={this.state.showAnswered} />)}
+                                            />
+                                            <Route path='/add'
+                                                   render={() => (
+                                                       <NewPoll/>)}
+                                            />
+                                            <Route path='/questions/:question_id'
+                                                   component={QuestionDetails}
+                                            />
+                                            <Route path='/leaderboard'
+                                                      render={() => (
+                                                       <LeaderBoard/>   )}
+                                            />
+                                         </div>
+                                    </div>
+
                     }
 
                 </Fragment>
