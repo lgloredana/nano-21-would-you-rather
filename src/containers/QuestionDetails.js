@@ -38,12 +38,12 @@ class QuestionDetails extends Component {
     render() {
         const { users, question,isAnswerdQuestion } = this.props;
         const {selectedOption} = this.state;
-        let votesQ1, votesQ2, nrUsers;
+        let votesQ1, votesQ2, nrUsersWhoVoted;
 
         if(question){
             votesQ1 = question.optionOne.votes.length;
             votesQ2 = question.optionTwo.votes.length;
-            nrUsers = Object.keys(users).length;
+            nrUsersWhoVoted = votesQ1 + votesQ2;
         }else{
             this.props.history.push(`/error`);
         }
@@ -74,7 +74,7 @@ class QuestionDetails extends Component {
                                     isAnswerdQuestion
                                         ? <div>
                                             <label>Count = {votesQ1} ------</label>
-                                            <label> {votesQ1 * 100 / nrUsers} %</label>
+                                            <label> {votesQ1 * 100 / nrUsersWhoVoted} %</label>
                                         </div>
                                         : ''
                                 }
@@ -93,7 +93,7 @@ class QuestionDetails extends Component {
                                     isAnswerdQuestion
                                         ? <div>
                                             <label>Count = {votesQ2} -------</label>
-                                            <label> {votesQ2 * 100 / nrUsers} %</label>
+                                            <label> {votesQ2 * 100 / nrUsersWhoVoted} %</label>
                                         </div>
                                         : ''
                                 }
