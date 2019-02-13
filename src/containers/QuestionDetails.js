@@ -8,6 +8,15 @@ class QuestionDetails extends Component {
         selectedOption: ''
     };
 
+    componentWillMount() {
+        const {question, users, authedUser} = this.props;
+        if(question) {
+            this.setState({
+                selectedOption: users[authedUser].answers[question.id]
+            });
+        }
+    }
+
     updateAnswer = (e) => {
         e.preventDefault();
         this.props.dispatch(handleUpdateQuestion({qid: this.props.question.id,answer:e.target.question.value}))
@@ -19,17 +28,6 @@ class QuestionDetails extends Component {
             selectedOption: changeEvent.target.value
         });
     };
-
-    static getDerivedStateFromProps(props, state){
-        if(props.question && props.users[props.authedUser].answers[props.question.id]) {
-            return {
-                selectedOption: props.users[props.authedUser].answers[props.question.id]
-            };
-        }
-        else{
-            return null;
-        }
-    }
 
     render() {
         const { users, question,isAnswerdQuestion } = this.props;
