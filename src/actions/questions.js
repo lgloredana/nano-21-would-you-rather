@@ -54,7 +54,7 @@ function updateQuestion(questionAnswer) {
     }
 }
 
-export function handleUpdateQuestion({qid, answer}, callback) {
+export function handleUpdateQuestion({qid, answer}) {
     return (dispatch, getState) => {
         const { authedUser } = getState();
         const questionAnswer = {authedUser: authedUser.id, qid, answer};
@@ -62,7 +62,6 @@ export function handleUpdateQuestion({qid, answer}, callback) {
             .then((response) => {
                 dispatch(updateQuestion(questionAnswer));
                 dispatch(handleUpdateUsers({answerId:qid, answer}));
-                callback();
             })
     }
 }

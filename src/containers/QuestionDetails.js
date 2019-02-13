@@ -22,12 +22,9 @@ class QuestionDetails extends Component {
 
     updateAnswer = (e) => {
         e.preventDefault();
-        this.props.dispatch(handleUpdateQuestion({qid: this.props.question.id,answer:e.target.question.value}, this.afterSaveAnswer))
+        this.props.dispatch(handleUpdateQuestion({qid: this.props.question.id,answer:e.target.question.value}))
     };
 
-    afterSaveAnswer = () => {
-        this.props.history.push(`/`);
-    };
 
     handleOptionChange = (changeEvent) => {
         this.setState({
