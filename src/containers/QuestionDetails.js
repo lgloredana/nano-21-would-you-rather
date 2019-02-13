@@ -30,7 +30,7 @@ class QuestionDetails extends Component {
     };
 
     render() {
-        const { users, question,isAnswerdQuestion } = this.props;
+        const { users, question, isAnswerdQuestion } = this.props;
         const {selectedOption} = this.state;
         let votesQ1, votesQ2, nrUsersWhoVoted;
 
@@ -39,7 +39,6 @@ class QuestionDetails extends Component {
             votesQ2 = question.optionTwo.votes.length;
             nrUsersWhoVoted = votesQ1 + votesQ2;
         }
-
 
         return ( <div>{ question
             ? (
@@ -59,6 +58,7 @@ class QuestionDetails extends Component {
                                        value='optionOne'
                                        name='question'
                                        checked={selectedOption === 'optionOne'}
+                                       disabled={isAnswerdQuestion}
                                        onChange={this.handleOptionChange}
                                 />
                                 <label htmlFor="qChoice1">{question.optionOne.text} </label>
@@ -79,6 +79,7 @@ class QuestionDetails extends Component {
                                        name='question'
                                        checked={selectedOption === 'optionTwo'}
                                        onChange={this.handleOptionChange}
+                                       disabled={isAnswerdQuestion}
                                 />
                                 <label htmlFor="qChoice2">{question.optionTwo.text}</label>
                                 {
