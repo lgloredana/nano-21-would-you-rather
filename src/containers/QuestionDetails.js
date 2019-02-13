@@ -1,7 +1,7 @@
 import React, { Component } from 'react'
 import connect from "react-redux/es/connect/connect";
 import {handleUpdateQuestion} from "../actions/questions";
-import {withRouter} from 'react-router-dom'
+import {withRouter, Redirect} from 'react-router-dom'
 
 class QuestionDetails extends Component {
     state = {
@@ -14,9 +14,6 @@ class QuestionDetails extends Component {
             this.setState({
                 selectedOption: users[authedUser].answers[question.id]
             });
-        }
-        else{
-            this.props.history.push(`/error`);
         }
     }
 
@@ -44,9 +41,8 @@ class QuestionDetails extends Component {
         }
 
 
-        return (<div>
-              {question
-                      ? (
+        return ( <div>{ question
+            ? (
                 <div>
                     <h1>Would You Rather</h1>
                     <img
@@ -102,8 +98,9 @@ class QuestionDetails extends Component {
                                 Answer</button>
                         }
                     </form>
-                </div>)
-                      : <div></div>
+                </div>
+                )
+            : <Redirect to='/error'></Redirect>
             }
             </div>
         )
@@ -121,4 +118,4 @@ function mapStateToProps({authedUser, questions, users} , props) {
     }
 }
 
-export default withRouter(connect(mapStateToProps)(QuestionDetails));
+export default connect(mapStateToProps)(QuestionDetails);
