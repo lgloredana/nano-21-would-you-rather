@@ -21,16 +21,14 @@ class QuestionDetails extends Component {
     };
 
     static getDerivedStateFromProps(props, state){
-        if(props.question) {
+        if(props.question && props.users[props.authedUser].answers[props.question.id]) {
             return {
-                selectedOption: props.question.optionOne.votes.find(user => (user === props.authedUser))
-                    ? 'optionOne'
-                    : props.question.optionTwo.votes.find(user => (user === props.authedUser))
-                        ? 'optionTwo'
-                        : ''
+                selectedOption: props.users[props.authedUser].answers[props.question.id]
             };
         }
-        return null;
+        else{
+            return null;
+        }
     }
 
     render() {
