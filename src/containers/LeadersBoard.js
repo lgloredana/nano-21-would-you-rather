@@ -1,31 +1,28 @@
 import React from 'react'
 import {connect} from "react-redux";
 
-class LeaderBoard extends React.Component{
-
-    render () {
-        return (
-            <div>
-                <h1>Leader Board</h1>
-                <ol>
-                    {
-                        this.props.orderedUserIds.map( userId => {
-                            const user = this.props.users[userId];
-                            return (<li key={userId}>
-                                <strong>{user.name} </strong>
-                                <img
-                                    src={user.avatarURL}
-                                    alt={`Avatar of ${user.name}`}
-                                    className='avatar'
-                                />
-                                asked - {Object.keys(user.answers).length} -
-                                answers - {user.questions.length}
-                                </li>)})
-                    }
-                </ol>
-            </div>
-        )}
-}
+const LeaderBoard  = (props) => {
+    return (
+        <div>
+            <h1>Leader Board</h1>
+            <ol>
+                {
+                    props.orderedUserIds.map( userId => {
+                        const user = props.users[userId];
+                        return (<li key={userId}>
+                            <strong>{user.name} </strong>
+                            <img
+                                src={user.avatarURL}
+                                alt={`Avatar of ${user.name}`}
+                                className='avatar'
+                            />
+                            asked - {Object.keys(user.answers).length} -
+                            answers - {user.questions.length}
+                            </li>)})
+                }
+            </ol>
+        </div>
+)};
 
 function mapStateToProps({users}){
     return {
