@@ -8,18 +8,6 @@ class QuestionDetails extends Component {
         selectedOption: ''
     };
 
-    componentDidMount() {
-        if(this.props.question) {
-            this.setState({
-                selectedOption: this.props.question.optionOne.votes.find(user => (user === this.props.authedUser))
-                    ? 'optionOne'
-                    : this.props.question.optionTwo.votes.find(user => (user === this.props.authedUser))
-                        ? 'optionTwo'
-                        : ''
-            });
-        }
-    }
-
     updateAnswer = (e) => {
         e.preventDefault();
         this.props.dispatch(handleUpdateQuestion({qid: this.props.question.id,answer:e.target.question.value}))
@@ -31,6 +19,19 @@ class QuestionDetails extends Component {
             selectedOption: changeEvent.target.value
         });
     };
+
+    static getDerivedStateFromProps(props, state){
+        if(props.question) {
+            return {
+                selectedOption: props.question.optionOne.votes.find(user => (user === props.authedUser))
+                    ? 'optionOne'
+                    : props.question.optionTwo.votes.find(user => (user === props.authedUser))
+                        ? 'optionTwo'
+                        : ''
+            };
+        }
+        return null;
+    }
 
     render() {
         const { users, question,isAnswerdQuestion } = this.props;
