@@ -2,7 +2,7 @@ import React, { Component, Fragment } from 'react';
 import '../css/App.css';
 import { connect } from "react-redux";
 import {handleInitialData} from "../actions/shared";
-import {BrowserRouter, Route, Redirect, Switch, withRouter} from "react-router-dom";
+import {BrowserRouter, Route, Switch} from "react-router-dom";
 import Dashboard from "./Dashboard";
 import LoadingBar from 'react-redux-loading'
 import Login from "./Login";

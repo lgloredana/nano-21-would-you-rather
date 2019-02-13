@@ -1,6 +1,6 @@
 import React, { Component } from 'react'
 import connect from "react-redux/es/connect/connect";
-import {handleUpdateQuestion, OPT1, OPT2} from "../actions/questions";
+import {handleUpdateQuestion} from "../actions/questions";
 import {withRouter} from 'react-router-dom'
 
 class QuestionDetails extends Component {
@@ -14,6 +14,9 @@ class QuestionDetails extends Component {
             this.setState({
                 selectedOption: users[authedUser].answers[question.id]
             });
+        }
+        else{
+            this.props.history.push(`/error`);
         }
     }
 
@@ -38,9 +41,8 @@ class QuestionDetails extends Component {
             votesQ1 = question.optionOne.votes.length;
             votesQ2 = question.optionTwo.votes.length;
             nrUsersWhoVoted = votesQ1 + votesQ2;
-        }else{
-            this.props.history.push(`/error`);
         }
+
 
         return (<div>
               {question

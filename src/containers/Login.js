@@ -1,7 +1,6 @@
 import React from 'react'
 import {connect} from "react-redux";
 import { handleGetAuthedUser} from "../actions/authUser";
-import { Redirect,NavLink } from 'react-router-dom'
 
 class Login extends React.Component{
 

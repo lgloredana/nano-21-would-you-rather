@@ -1,4 +1,4 @@
-import React, { Component } from 'react'
+import React  from 'react'
 import {connect} from 'react-redux'
 import NavLink from "react-router-dom/es/NavLink";
 
@@ -11,13 +11,13 @@ const  Menu  = (props) =>{
                          onClick={props.toggleQuestionsView}>
                     {props.showAnswered ? 'Unanswered' : 'Answered'}
                 </NavLink>
-                <label> /////////////// </label>
+                <label> -------- </label>
                 <NavLink
                         activeClassName='active'
                         to='/leaderboard'>
                     Leader Board
                 </NavLink>
-                <label> /////////////// </label>
+                <label> ------------ </label>
                 <NavLink
                         activeClassName='active'
                         to='/add'>
@@ -28,7 +28,7 @@ const  Menu  = (props) =>{
     };
 
 
-function mapStateToProps({}, {showAnswered, toggleQuestionsView}){
+function mapStateToProps(state, {showAnswered, toggleQuestionsView}){
     return {
         showAnswered,
         toggleQuestionsView

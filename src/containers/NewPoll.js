@@ -1,7 +1,7 @@
 import React from 'react'
 import {connect} from "react-redux";
 import {handleSaveQuestion} from "../actions/questions";
-import {Redirect, withRouter} from 'react-router-dom'
+import {withRouter} from 'react-router-dom'
 
 class NewPoll extends React.Component{
 

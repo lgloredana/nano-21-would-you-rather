@@ -1,7 +1,5 @@
-import {hideLoading, showLoading} from "react-redux-loading";
-
 export const GET_AUTH_USER = 'GET_USER';
-export const AUTH_ID = 'tylermcginnis';
+// export const AUTH_ID = 'tylermcginnis';
 
 function getAuthUser(authedUser) {
     return {
