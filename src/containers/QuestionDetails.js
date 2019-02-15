@@ -1,7 +1,7 @@
 import React, { Component } from 'react'
 import connect from "react-redux/es/connect/connect";
 import {handleUpdateQuestion} from "../actions/questions";
-import {withRouter, Redirect} from 'react-router-dom'
+import {Redirect} from 'react-router-dom'
 
 class QuestionDetails extends Component {
     state = {
@@ -17,12 +17,6 @@ class QuestionDetails extends Component {
         }
     }
 
-    updateAnswer = (e) => {
-        e.preventDefault();
-        this.props.dispatch(handleUpdateQuestion({qid: this.props.question.id,answer:e.target.question.value}))
-    };
-
-
     handleOptionChange = (changeEvent) => {
         this.setState({
             selectedOption: changeEvent.target.value
@@ -30,7 +24,7 @@ class QuestionDetails extends Component {
     };
 
     render() {
-        const { users, question, isAnswerdQuestion } = this.props;
+        const { users, question, isAnswerdQuestion, handleUpdateQuestion } = this.props;
         const {selectedOption} = this.state;
         let votesQ1, votesQ2, nrUsersWhoVoted;
 
@@ -50,7 +44,14 @@ class QuestionDetails extends Component {
                         className='avatar'
                     />
 
-                    <form onSubmit={(e) => this.updateAnswer(e)}>
+                    <form onSubmit={(e) => {
+                        e.preventDefault();
+                        handleUpdateQuestion({
+                                qid: this.props.question.id,
+                                answer:e.target.question.value
+                            }
+                        )}
+                    }>
                         <div>
                             <div>
                                 <input type="radio"
@@ -119,4 +120,10 @@ function mapStateToProps({authedUser, questions, users} , props) {
     }
 }
 
-export default connect(mapStateToProps)(QuestionDetails);
+const mapDispatchToProps = (dispatch) => {
+    return {
+        handleUpdateQuestion: (questionInfo) => dispatch(handleUpdateQuestion(questionInfo))
+    }
+};
+
+export default connect(mapStateToProps, mapDispatchToProps)(QuestionDetails);
