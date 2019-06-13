@@ -115,6 +115,82 @@ let questions = {
   },
 }
 
+let quizQuestions ={
+  "quiz1" : {
+    question: "We are unicorns! Which do you think was the valuation that got us this awesome title?",
+    answeright: "USD $1.1 billion",
+    answerwrong: "USD $1.5 billion",
+    users: [{
+      name:"tylermcginnis",
+      answeredright: true
+    }]
+  },
+  "quiz2" : {
+      question: "Where are we headquartered?",
+      answeright: "San Francisco",
+      answerwrong: "Copenhagen",
+      users: [{
+          name:"tylermcginnis",
+          answeredright: false
+      }]
+  },
+    "quiz3" : {
+        question: "Did you know we love our employees as much as we love our customers? That's why we got in the top of cloud computing companies to work for. Can you tell how high we were ranked?\n",
+        answeright: "Top 10",
+        answerwrong: "Top 50",
+        users: []
+    },
+    "quiz4" : {
+        question: "We want to grow as much as possible and that's why we also opened an office in China. When did this happen?\n",
+        answeright: "2013",
+        answerwrong: "2010",
+        users: []
+    }
+    ,
+    "quiz5" : {
+        question: "We got \"the world's first\" artificial intelligence for the B2B collaboration space. What's her name?\n",
+        answeright: "Monica",
+        answerwrong: "Ada",
+        users: []
+    },
+    "quiz6" : {
+        question: "When did we aquire Babelway, the online B2B integration platform?\n",
+        answeright: "2018",
+        answerwrong: "2018",
+        users: []
+    },
+    "quiz7" : {
+        question: "What happened in 2011?",
+        answeright: "Tradeshift made its App marketplace available.",
+        answerwrong: "Tradeshift launched Seller Club and Blockchain Payments",
+        users: []
+    },
+    "quiz8" : {
+        question: "",
+        answeright: "",
+        answerwrong: "",
+        users: []
+    },
+    "quiz9" : {
+        question: "",
+        answeright: "",
+        answerwrong: "",
+        users: []
+    },
+    "quizq10" : {
+        question: "",
+        answeright: "",
+        answerwrong: "",
+        users: []
+    },
+    "quiz11" : {
+        question: "",
+        answeright: "",
+        answerwrong: "",
+        users: []
+    }
+};
+
 function generateUID () {
   return Math.random().toString(36).substring(2, 15) + Math.random().toString(36).substring(2, 15)
 }
@@ -128,6 +204,12 @@ export function _getUsers () {
 export function _getQuestions () {
   return new Promise((res, rej) => {
     setTimeout(() => res({...questions}), 1000)
+  })
+}
+
+export function _getQuizQuestions() {
+  return new Promise((res, rej) =>  {
+    setTimeout(() => res({...quizQuestions}), 1000)
   })
 }
 
