@@ -14,7 +14,7 @@ export default function users(prevStoreState = null, action) {
             if (answerId) {
                 updateAnswer = prevStoreState[uId].answers[answerId]
                     ?  prevStoreState[uId].answers
-                    :  { ... prevStoreState[uId].answers , [answerId] : answer};
+                    :  { ...prevStoreState[uId].answers , [answerId] : answer};
             }
             else{
                 updateAnswer = prevStoreState[uId].answers;

@@ -1,7 +1,8 @@
 import questions from './questions'
 import users from './users'
 import authedUser from './authedUser'
+import quizQuestions from './quizQuestions'
 import { combineReducers } from "redux";
 import {loadingBarReducer} from "react-redux-loading";
 
-export default combineReducers({questions, users, authedUser, loadingBar: loadingBarReducer});
+export default combineReducers({questions, users, authedUser, quizQuestions, loadingBar: loadingBarReducer});
