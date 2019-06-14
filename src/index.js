@@ -20,16 +20,7 @@ const composeEnhancers = composeWithDevTools({
 // more details about possible options are here: https://github.com/zalmoxisus/redux-devtools-extension/blob/master/docs/API/Arguments.md#windowdevtoolsextensionconfig
 const store = createStore(rootReducer,composeEnhancers(applyMiddleware(thunk)));
 
-if (!('indexedDB' in window)) {
-    console.warn('IndexedDB not supported');
-}else{
-    console.log('IndexDB is available!');
-}
-const name = 'fe-guild';
-const version = 3;
-const dbPromise = openDB(name, version, upgradeDB => {
-    console.log('ttttt');
-});
+
 
 
 ReactDOM.render(
