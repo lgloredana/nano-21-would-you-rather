@@ -20,8 +20,25 @@ const composeEnhancers = composeWithDevTools({
 // more details about possible options are here: https://github.com/zalmoxisus/redux-devtools-extension/blob/master/docs/API/Arguments.md#windowdevtoolsextensionconfig
 const store = createStore(rootReducer,composeEnhancers(applyMiddleware(thunk)));
 
+const base = document.querySelector('base');
+let baseUrl = base && base.href || '';
+if (!baseUrl.endsWith('/')) {
+    baseUrl = `${baseUrl}/`;
+}
 
-
+if ('serviceWorker' in navigator) {
+    navigator.serviceWorker.register(`${baseUrl}sw.js`)
+        .then( registration => {
+            // Registration was successful
+            debugger;
+            console.log('ServiceWorker registration successful with scope: ', registration.scope);
+        })
+        .catch(err => {
+            // registration failed :(
+            debugger;
+            console.log('ServiceWorker registration failed: ', err);
+        });
+}
 
 ReactDOM.render(
     <Provider store={store}>
